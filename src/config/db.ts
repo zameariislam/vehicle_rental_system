@@ -7,8 +7,6 @@ export const pool = new Pool({
 });
 
 
-
-  
     const dbinIt=async()=>{
         try{
 

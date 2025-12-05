@@ -12,7 +12,7 @@ import { pool } from "../../config/db";
  }
 
  
- const signUp=async (payload:IUser)=>{
+ const userRegistration=async (payload:IUser)=>{
 
       const {name,email,password,phone,role}=payload;
       const result = await pool.query(
@@ -33,5 +33,5 @@ import { pool } from "../../config/db";
 
 
  export const authServices={
-    signUp
+    userRegistration
  }

@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { authServices } from "./auth.service";
 
- const signUp=async (req:Request,res:Response)=>{
+ const userRegistration=async (req:Request,res:Response)=>{
 
 
     try{
 
-             const result= await authServices.signUp(req.body)
+             const result= await authServices.userRegistration(req.body)
 
              return   res.status(201).json({
             success: true,
@@ -36,5 +36,5 @@ import { authServices } from "./auth.service";
 
 
  export const authControllers={
-    signUp
+    userRegistration
  }
