@@ -11,10 +11,8 @@ import { authControllers } from './auth.controller'
   })
 
 
-  router.post('/signup',authControllers.userRegistration)
-  
-
-
+router.post('/signup',authControllers.userRegistration)
+ router.post('/signin',authControllers.userLogin)
 
 
 

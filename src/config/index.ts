@@ -9,7 +9,10 @@
    const config={
     port:process.env.PORT,
     connectionString:process.env.CONNECTION_STRING,
-    saltRounds:process.env.SALT_ROUNDS
+    saltRounds:process.env.SALT_ROUNDS,
+    jwtSecret:process.env.JWT_SECRET,
+    jwtExpire:process.env.JWT_EXPIRE
+
    }
 
 

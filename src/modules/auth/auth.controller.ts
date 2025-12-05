@@ -18,24 +18,41 @@ import { authServices } from "./auth.service";
     } catch(err:any){
         next(err)
 
-    // console.log('error from controller',  err.message,err.statusCode);
-    //   res.status(500).json({
-    //   success: false,
-    //   message: err.message,
-    // });
+    
 
     }
 
-     
 
 
+ }
 
-   
+  const userLogin=async (req:Request,res:Response,next:NextFunction)=>{
+
+
+    try{
+
+             const result= await authServices.userLogin(req.body)
+
+             return   res.status(201).json({
+             success: true,
+             message: "Login successful",
+             data: result,
+             });
+
+
+    } catch(err:any){
+        next(err)
+
+    
+
+    }
+
 
 
  }
 
 
  export const authControllers={
-    userRegistration
+    userRegistration,
+    userLogin
  }
