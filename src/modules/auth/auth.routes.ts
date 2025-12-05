@@ -12,6 +12,7 @@ import { authControllers } from './auth.controller'
 
 
   router.post('/signup',authControllers.userRegistration)
+  
 
 
 

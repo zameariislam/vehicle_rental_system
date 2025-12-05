@@ -1,27 +1,37 @@
+import config from "../../config";
 import { pool } from "../../config/db";
+import { IUser } from "./auth.interface";
+
+import bcrypt from 'bcrypt'
 
  
-
- type IRole='customer'|'admin'
- type IUser={
-    name:string;
-    email:string;
-    password:string;
-    phone:string;
-    role:IRole
- }
 
  
  const userRegistration=async (payload:IUser)=>{
 
       const {name,email,password,phone,role}=payload;
+
+       const hashedPassword=await  bcrypt.hash(password, Number(config.saltRounds) as number)
+        console.log(hashedPassword)
+
       const result = await pool.query(
     `INSERT INTO users(name,email,password,phone,role) VALUES($1, $2, $3, $4,$5) RETURNING *`,
-    [name,email,password,phone,role]
+    [name,email,hashedPassword,phone,role]
   );
 
   return result;
 
+
+
+
+ }
+
+
+ const userLogin=async (payload:Partial<IUser>)=>{
+
+      const {email,password}=payload;
+     
+   
 
 
 
@@ -33,5 +43,6 @@ import { pool } from "../../config/db";
 
 
  export const authServices={
-    userRegistration
+    userRegistration,
+    userLogin
  }

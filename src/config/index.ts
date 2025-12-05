@@ -8,7 +8,8 @@
 
    const config={
     port:process.env.PORT,
-    connectionString:process.env.CONNECTION_STRING
+    connectionString:process.env.CONNECTION_STRING,
+    saltRounds:process.env.SALT_ROUNDS
    }
 
 
