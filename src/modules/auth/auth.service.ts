@@ -4,7 +4,7 @@ import { CustomError } from "../../errorhelpers/customError";
 import { IUser } from "./auth.interface";
 
 import bcrypt from 'bcrypt'
- import jwt, { JwtPayload, SignOptions } from 'jsonwebtoken';
+ import jwt from 'jsonwebtoken';
 
  
 
@@ -26,7 +26,7 @@ import bcrypt from 'bcrypt'
      
 
       const result = await pool.query(
-    `INSERT INTO users(name,email,password,phone,role) VALUES($1, $2, $3, $4,$5) RETURNING *`,
+    `INSERT INTO users(name,email,password,phone,role) VALUES($1, $2, $3, $4,$5) RETURNING name,email,phone,role`,
     [name,email,hashedPassword,phone,role]
   );
 
@@ -40,10 +40,12 @@ import bcrypt from 'bcrypt'
 
  const userLogin=async (payload:Partial<IUser>)=>{
 
+    
+
       const {email,password}=payload;
 
        const isUserExist = await pool.query(`SELECT * FROM users WHERE email = $1`, [email]);
-        console.log('user',isUserExist.rows[0].password)
+        
 
        if(isUserExist.rows.length==0){
        
@@ -64,7 +66,7 @@ import bcrypt from 'bcrypt'
         role:isUserExist.rows[0].role
       }
 
-       console.log( )
+    
 
        const token= jwt.sign(jwtPayload,config.jwtSecret as string, {
         expiresIn:'1d'
@@ -84,13 +86,6 @@ import bcrypt from 'bcrypt'
          return { token,user}
 
     
-
-
-
-    
-   
-
-
 
  }
 

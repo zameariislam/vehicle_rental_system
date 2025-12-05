@@ -28,10 +28,13 @@ import { authServices } from "./auth.service";
 
   const userLogin=async (req:Request,res:Response,next:NextFunction)=>{
 
+ 
+
 
     try{
 
              const result= await authServices.userLogin(req.body)
+             res.set('Authorization',  `Bearer ${result.token}`)
 
              return   res.status(201).json({
              success: true,
