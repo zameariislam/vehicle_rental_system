@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { authServices } from "./auth.service";
 
- const userRegistration=async (req:Request,res:Response)=>{
+ const userRegistration=async (req:Request,res:Response,next:NextFunction)=>{
 
 
     try{
@@ -16,12 +16,13 @@ import { authServices } from "./auth.service";
 
 
     } catch(err:any){
+        next(err)
 
-    console.log(  err);
-      res.status(500).json({
-      success: false,
-      message: err.message,
-    });
+    // console.log('error from controller',  err.message,err.statusCode);
+    //   res.status(500).json({
+    //   success: false,
+    //   message: err.message,
+    // });
 
     }
 

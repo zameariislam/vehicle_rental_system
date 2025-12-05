@@ -1,7 +1,10 @@
 
-import express, { Request, Response } from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import dbinIt from './config/db'
 import authRoutes from './modules/auth/auth.routes'
+import notFound from './middleware/notFound'
+import { CustomError } from './errorhelpers/customError'
+import globalErrorHandler from './middleware/globalErrorHandler'
 
 
 const app = express()
@@ -15,10 +18,24 @@ dbinIt()
 app.use('/api/v1/auth',authRoutes)
 
 
+
+
+
+
+
+
+
+
 app.get('/', (req:Request, res:Response) => {
   res.send('Hello World!')
 })
 
+
+app.use(notFound)
+
+
+
+app.use( globalErrorHandler  )
 
 
 export default app
