@@ -43,7 +43,48 @@ import { IVehicle } from "./vehicle.interface";
  }
 
 
+ 
+const getAllVehicles = async () => {
+  const result = await pool.query(`SELECT * FROM vehicles`);
+  return result;
+};
+
+
+const updateVehicle = async (payload:Partial<IVehicle>,id:number) => {
+     
+     const fieldToUpdate=Object.keys(payload)
+    
+     const updatedValues=Object.values(payload)
+       const setField=fieldToUpdate?.map((fieldName,index)=> `${fieldName}=$${++index}` ).join( ' ,')
+       
+ 
+  const result = await pool.query(
+    `UPDATE vehicles SET ${setField} WHERE id=$${fieldToUpdate.length +1} RETURNING *`,
+    [...updatedValues, id]
+  );
+
+  return result;
+};
+
+const deleteVehicle = async (id:number) => {
+  const result = await pool.query(`DELETE FROM vehicles WHERE id = $1`, [id]);
+
+  return result;
+};
+
+
+const getVehicleById = async (id: number) => {
+     console.log('i am here to get',id)
+  const result = await pool.query(`SELECT * FROM vehicles WHERE id = $1`, [id]);
+
+  return result;
+};
+
 
  export const vehicleServices={
-    createVehicle
+    createVehicle,
+    getAllVehicles,
+    updateVehicle,
+    deleteVehicle,
+    getVehicleById
  }
