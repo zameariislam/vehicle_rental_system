@@ -1,6 +1,7 @@
 import { Pool } from "pg"
 import config from ".";
 
+  //  total_price INT  NOT NULL CHECK(total_price>=0),
 // CHECK (registration_number ~ )
 
 //DB
@@ -42,12 +43,12 @@ export const pool = new Pool({
           await pool.query(`
             CREATE TABLE IF NOT EXISTS bookings(
             id SERIAL PRIMARY KEY,
-           customer_id INT REFERENCES users(id) ON DELETE CASCADE,
-           vehicle_id INT REFERENCES  vehicles(id) ON DELETE CASCADE,
+           customer_id INT REFERENCES  users(id) ON DELETE CASCADE,
+           vehicle_id INT REFERENCES   vehicles(id) ON DELETE CASCADE,
             
            rent_start_date DATE NOT NULL CHECK(rent_start_date>=CURRENT_DATE),
            rent_end_date DATE NOT NULL  CHECK(rent_end_date >rent_start_date ),
-           total_price INT  NOT NULL CHECK(total_price>=0),
+        
 
            status VARCHAR(100)  CHECK(status IN ('active','cancelled','returned')) DEFAULT 'active'
             )
