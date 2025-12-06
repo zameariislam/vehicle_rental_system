@@ -1,6 +1,8 @@
 import { Pool } from "pg"
 import config from ".";
 
+// CHECK (registration_number ~ )
+
 //DB
 export const pool = new Pool({
   connectionString: `${config.connectionString}`,
@@ -27,7 +29,7 @@ export const pool = new Pool({
         id SERIAL PRIMARY KEY,
         vehicle_name VARCHAR(100) NOT NULL,
         type VARCHAR(100) NOT NULL CHECK(type IN ('car', 'bike', 'van','SUV')) ,
-        registration_number VARCHAR(100) NOT NULL UNIQUE CHECK (registration_number ~ '^[A-Z]{3}-\d{3}$'),
+        registration_number VARCHAR(50) NOT NULL UNIQUE ,
 
         daily_rent_price INT  NOT NULL CHECK(daily_rent_price>=0),
         availability_status VARCHAR(50)  CHECK( availability_status IN ('available','booked')) DEFAULT 'available'

@@ -5,6 +5,7 @@ import authRoutes from './modules/auth/auth.routes'
 import notFound from './middleware/notFound'
 import { CustomError } from './errorhelpers/customError'
 import globalErrorHandler from './middleware/globalErrorHandler'
+import vehicleRoutes from './modules/vehicle/vehicle.routes'
 
 
 const app = express()
@@ -16,6 +17,7 @@ dbinIt()
 
 
 app.use('/api/v1/auth',authRoutes)
+app.use('/api/v1/vehicles',vehicleRoutes)
 
 
 
